@@ -1,0 +1,6 @@
+AUTH_KEY: "free"
+
+PROXY_URL: ""
+
+LICENCE_HEADER_KEY: "authKey"
+
