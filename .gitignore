@@ -18,3 +18,5 @@ temp.yaml
 bin
 **/config/config.yaml
 logs
+chatgpt-proxy-node
+.idea
