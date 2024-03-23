@@ -154,6 +154,45 @@ function Install_Compose(){
 }
 
 
+function Set_Key(){
+      DEFAULT_KEY=free
+       while true; do
+           read -p "设置AuthKey（默认为free）：" AUTH_KEY
+
+           if [[ "$AUTH_KEY" == "" ]];then
+               AUTH_KEY=$DEFAULT_KEY
+           fi
+
+           if [[ ! "$AUTH_KEY" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
+               echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
+               continue
+           fi
+           log "您设置的AuthKey为：$AUTH_KEY"
+           break
+       done
+}
+
+function InitNode() {
+    log "配置 Proxy Node Service"
+    git clone -b main  --depth=1 https://github.com/hanglegehang/chatgpt-proxy-node-deploy.git chatgpt-proxy-node
+    cd chatgpt-proxy-node
+
+    RUN_BASE_DIR=/opt/chatgpt-proxy-node
+    mkdir -p $RUN_BASE_DIR
+    rm -rf $RUN_BASE_DIR/*
+    cp ./pnctrl /usr/local/bin && chmod +x /usr/local/bin/pnctrl
+    cp ./docker-compose.yml $RUN_BASE_DIR
+    cp ./config.yaml $RUN_BASE_DIR
+    sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" /usr/local/bin/pnctrl
+    sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" $RUN_BASE_DIR/config.yaml
+
+    cd $RUN_BASE_DIR
+    docker compose pull
+    docker compose up -d --remove-orphans
+
+## 提示信息
+}
+
 
 function Get_Ip(){
     active_interface=$(ip route get 8.8.8.8 | awk 'NR==1 {print $5}')
@@ -185,29 +224,14 @@ function Show_Result(){
     log "================================================================"
 }
 
-function InitNode() {
-    log "配置 Proxy Node Service"
-    git clone -b main  --depth=1 https://github.com/hanglegehang/chatgpt-proxy-node-deploy.git chatgpt-proxy-node
-    cd chatgpt-proxy-node
 
-    RUN_BASE_DIR=/opt/chatgpt-proxy-node
-    mkdir -p $RUN_BASE_DIR
-    rm -rf $RUN_BASE_DIR/*
-    cp ./pnctrl /usr/local/bin && chmod +x /usr/local/bin/pnctrl
-    cp ./docker-compose.yml $RUN_BASE_DIR
-    cp ./config.yaml $RUN_BASE_DIR
-    sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" /usr/local/bin/pnctrl
-    cd $RUN_BASE_DIR
-    docker compose pull
-    docker compose up -d --remove-orphans
 
-## 提示信息
-}
 
 function main(){
     Check_Root
     Install_Docker
     Install_Compose
+    Set_Key
     InitNode
     Get_Ip
     Show_Result
