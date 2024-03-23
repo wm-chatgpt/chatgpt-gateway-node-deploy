@@ -194,7 +194,6 @@ function InitNode() {
     docker compose up -d --remove-orphans
 
 ## 提示信息
-echo "服务启动成功，请访问 http://ip:8100"
 }
 
 function main(){
