@@ -3,7 +3,7 @@ action=$1
 target=$2
 args=$@
 
-BASE_DIR=/opt
+BASE_DIR=/opt/chatgpt-proxy-node
 ORIGINAL_PORT=8100
 
 function usage() {
@@ -18,7 +18,7 @@ function usage() {
     echo "  restart             重启 1Panel 服务"
 }
 function setKey() {
-    sed -i -e "s#AUTH_KEY=.*#AUTH_KEY=${args}#g" $BASE_DIR/config.yaml
+    sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${target}#g" $BASE_DIR/config.yaml
 }
 function restart() {
     cd $BASE_DIR
