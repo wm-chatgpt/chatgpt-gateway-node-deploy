@@ -155,7 +155,8 @@ function Install_Compose(){
 
 
 function Set_Key(){
-      DEFAULT_KEY=free
+       DEFAULT_KEY=free
+
        while true; do
            read -p "设置AuthKey（默认为free）：" AUTH_KEY
 
@@ -167,6 +168,7 @@ function Set_Key(){
                echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
                continue
            fi
+
            log "您设置的AuthKey为：$AUTH_KEY"
            break
        done
