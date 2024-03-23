@@ -158,7 +158,7 @@ function Set_Key(){
        DEFAULT_KEY=free
 
        while true; do
-           read -p "设置AuthKey（默认为free）：" AUTH_KEY
+           read -p "请设置AuthKey（默认为free）：" AUTH_KEY
 
            if [[ "$AUTH_KEY" == "" ]];then
                AUTH_KEY=$DEFAULT_KEY

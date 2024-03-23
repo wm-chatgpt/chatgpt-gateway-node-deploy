@@ -5,7 +5,7 @@
 ### 默认
 
 ```bash
-curl -sSfL https://raw.githubusercontent.com/hanglegehang/chatgpt-proxy-node-deploy/main/proxy-node-quick-install.sh | bash
+curl -sSfL -H "Pragma: no-cache" https://raw.githubusercontent.com/hanglegehang/chatgpt-proxy-node-deploy/main/proxy-node-quick-install.sh | bash
 ```
 ### 自定义参数
 
