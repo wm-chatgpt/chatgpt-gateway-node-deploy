@@ -1,0 +1,50 @@
+#!/bin/bash
+action=$1
+target=$2
+args=$@
+
+BASE_DIR=/opt
+ORIGINAL_PORT=8100
+
+function usage() {
+    echo "proxy node 控制脚本"
+    echo
+    echo "Usage: "
+    echo "  ./pnctrl [COMMAND] [ARGS...]"
+    echo "  ./pnctrl --help"
+    echo
+    echo "Commands: "
+    echo "  setKey              setKey"
+    echo "  restart             重启 1Panel 服务"
+}
+function setKey() {
+    sed -i -e "s#AUTH_KEY=.*#AUTH_KEY=${args}#g" $BASE_DIR/config.yaml
+}
+function restart() {
+    cd $BASE_DIR
+    docker compose pull
+    docker compose up -d --remove-orphans
+}
+
+function main() {
+    case "${action}" in
+        setKey)
+            setKey
+            ;;
+        restart)
+            restart
+            ;;
+        help)
+            usage
+            ;;
+        --help)
+            usage
+            ;;
+        "")
+            usage
+            ;;
+        *)
+        echo "不支持的参数，请使用 help 或 --help 参数获取帮助"
+    esac
+}
+main

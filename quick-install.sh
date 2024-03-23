@@ -188,8 +188,16 @@ function Show_Result(){
 function InitNode() {
     log "配置 Proxy Node Service"
     git clone -b main  --depth=1 https://github.com/hanglegehang/chatgpt-proxy-node-deploy.git chatgpt-proxy-node
-     ## 进入目录
     cd chatgpt-proxy-node
+
+    RUN_BASE_DIR=/opt/chatgpt-proxy-node
+    mkdir -p $RUN_BASE_DIR
+    rm -rf $RUN_BASE_DIR/*
+    cp ./pnctrl /usr/local/bin && chmod +x /usr/local/bin/pnctrl
+    cp ./docker-compose.yml $RUN_BASE_DIR
+    cp ./config.yaml $RUN_BASE_DIR
+    sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" /usr/local/bin/pnctrl
+    cd $RUN_BASE_DIR
     docker compose pull
     docker compose up -d --remove-orphans
 
