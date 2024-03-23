@@ -173,13 +173,14 @@ function Get_Ip(){
     fi
 }
 
+NODE_PORT=8100
 function Show_Result(){
     log ""
     log "=================感谢您的耐心等待，安装已经完成=================="
     log ""
-    log "网关地址: http://$PUBLIC_IP:81000"
+    log "网关地址: http://$PUBLIC_IP:$NODE_PORT"
     log ""
-    log "如果使用的是云服务器，请至安全组开放 $PANEL_PORT 端口"
+    log "如果使用的是云服务器，请至安全组开放 $NODE_PORT 端口"
     log ""
     log "================================================================"
 }
