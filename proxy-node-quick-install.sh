@@ -155,10 +155,10 @@ function Install_Compose(){
 
 
 function Set_Auth_Key(){
-       DEFAULT_KEY=free
+       DEFAULT_AUTH_KEY=`cat /dev/urandom | head -n 16 | md5sum | head -c 10`
 
        while true; do
-           read -p "请设置AuthKey（默认为free）：" AUTH_KEY
+           read -p "请设置AuthKey（默认为$DEFAULT_AUTH_KEY）：" AUTH_KEY
 
            if [[ "$AUTH_KEY" == "" ]];then
                AUTH_KEY=$DEFAULT_KEY
@@ -170,6 +170,20 @@ function Set_Auth_Key(){
            fi
 
            log "您设置的AuthKey为：$AUTH_KEY"
+           break
+       done
+}
+
+    function Set_Licence(){
+       while true; do
+           read -p "请设置授权Licence：" LICENCE
+
+           if [[ ! "$LICENCE" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
+               echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
+               continue
+           fi
+
+           log "您设置的授权Licence为：$LICENCE"
            break
        done
 }
@@ -188,6 +202,7 @@ function InitNode() {
     cp ./config.yaml $RUN_BASE_DIR
     sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" /usr/local/bin/pnctl
     sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" $RUN_BASE_DIR/config.yaml
+    sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" $RUN_BASE_DIR/config.yaml
 
     cd $RUN_BASE_DIR
     docker compose pull
@@ -235,6 +250,7 @@ function main(){
     Install_Docker
     Install_Compose
     Set_Auth_Key
+    Set_Licence
     InitNode
     Get_Ip
     Show_Result
