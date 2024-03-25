@@ -154,7 +154,7 @@ function Install_Compose(){
 }
 
 
-function Set_Key(){
+function Set_Auth_Key(){
        DEFAULT_KEY=free
 
        while true; do
@@ -234,7 +234,7 @@ function main(){
     Check_Root
     Install_Docker
     Install_Compose
-    Set_Key
+    Set_Auth_Key
     InitNode
     Get_Ip
     Show_Result
