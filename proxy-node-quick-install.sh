@@ -176,6 +176,7 @@ function Set_Key(){
 
 function InitNode() {
     log "配置 Proxy Node Service"
+    rm -rf chatgpt-proxy-node
     git clone -b main  --depth=1 https://github.com/hanglegehang/chatgpt-proxy-node-deploy.git chatgpt-proxy-node
     cd chatgpt-proxy-node
 
