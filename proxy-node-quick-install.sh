@@ -7,7 +7,7 @@ CURRENT_DIR=$(
 
 function log() {
     message="[Proxy Log]: $1 "
-    echo -e "${message}" 2>&1 | tee -a ${CURRENT_DIR}/install.log
+    echo -e "${message}" 2>&1 | tee -a ${CURRENT_DIR}/proxy-node-install.log
 }
 
 
@@ -236,7 +236,9 @@ function Show_Result(){
     log "=================感谢您的耐心等待，安装已经完成=================="
     log ""
     log "网关地址: http://$PUBLIC_IP:$NODE_PORT"
-    log ""
+    log "AuthKey: ${AUTH_KEY}"
+    log "安装日志: ${CURRENT_DIR}/proxy-node-install.log" 
+        
     log "如果使用的是云服务器，请至安全组开放 $NODE_PORT 端口"
     log ""
     log "================================================================"
