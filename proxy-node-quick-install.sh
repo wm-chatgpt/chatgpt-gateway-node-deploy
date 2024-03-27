@@ -161,7 +161,7 @@ function Set_Auth_Key(){
            read -p "请设置AuthKey（默认为$DEFAULT_AUTH_KEY）：" AUTH_KEY
 
            if [[ "$AUTH_KEY" == "" ]];then
-               AUTH_KEY=$DEFAULT_KEY
+               AUTH_KEY=$DEFAULT_AUTH_KEY
            fi
 
            if [[ ! "$AUTH_KEY" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
