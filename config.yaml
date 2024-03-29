@@ -1,5 +1,10 @@
+# 网关鉴权key
 AUTH_KEY: ""
 
-PROXY_URL: ""
+#代理地址，可配置多个，- 地址
+#PROXY_URL:
+#  - ""
+PROXY_URL:
 
+#授权码
 LICENCE: ""
