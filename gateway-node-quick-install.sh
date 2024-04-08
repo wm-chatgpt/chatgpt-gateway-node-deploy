@@ -6,8 +6,8 @@ CURRENT_DIR=$(
 )
 
 function log() {
-    message="[Proxy Log]: $1 "
-    echo -e "${message}" 2>&1 | tee -a ${CURRENT_DIR}/proxy-node-install.log
+    message="[Gateway Log]: $1 "
+    echo -e "${message}" 2>&1 | tee -a ${CURRENT_DIR}/gateway-node-install.log
 }
 
 
@@ -189,12 +189,12 @@ function Set_Auth_Key(){
 }
 
 function InitNode() {
-    log "配置 Proxy Node Service"
-    rm -rf chatgpt-proxy-node
-    git clone -b main  --depth=1 https://github.com/hanglegehang/chatgpt-proxy-node-deploy.git chatgpt-proxy-node
-    cd chatgpt-proxy-node
+    log "配置 gateway Node Service"
+    rm -rf chatgpt-gateway-node
+    git clone -b main  --depth=1 https://github.com/wm-chatgpt/chatgpt-gateway-node-deploy.git chatgpt-gateway-node
+    cd chatgpt-gateway-node
 
-    RUN_BASE_DIR=/opt/chatgpt-proxy-node
+    RUN_BASE_DIR=/opt/chatgpt-gateway-node
     mkdir -p $RUN_BASE_DIR
     rm -rf $RUN_BASE_DIR/*
     cp ./pnctl /usr/local/bin && chmod +x /usr/local/bin/pnctl
@@ -237,7 +237,7 @@ function Show_Result(){
     log ""
     log "网关地址: http://$PUBLIC_IP:$NODE_PORT"
     log "AuthKey: ${AUTH_KEY}"
-    log "安装日志: ${CURRENT_DIR}/proxy-node-install.log" 
+    log "安装日志: ${CURRENT_DIR}/gateway-node-install.log" 
         
     log "如果使用的是云服务器，请至安全组开放 $NODE_PORT 端口"
     log ""
