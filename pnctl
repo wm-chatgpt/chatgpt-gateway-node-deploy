@@ -17,7 +17,7 @@ function usage() {
     echo "  setKey              setKey"
     echo "  restart             重启 1Panel 服务"
 }
-function setKey() {
+function setkey() {
     sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${target}#g" $BASE_DIR/config.yaml
 }
 function restart() {

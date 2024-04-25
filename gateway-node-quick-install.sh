@@ -174,7 +174,7 @@ function Set_Auth_Key(){
        done
 }
 
-    function Set_Licence(){
+function Set_Licence(){
        while true; do
            read -p "请设置授权Licence：" LICENCE
 
@@ -189,28 +189,18 @@ function Set_Auth_Key(){
 }
 
 function InitNode() {
-    log "配置 gateway Node Service"
-    rm -rf chatgpt-gateway-node
-    git clone -b main  --depth=1 https://github.com/wm-chatgpt/chatgpt-gateway-node-deploy.git chatgpt-gateway-node
-    cd chatgpt-gateway-node
+      log "配置 gateway Node Service"
+      git clone -b main  --depth=1 https://github.com/wm-chatgpt/chatgpt-gateway-node-deploy.git chatgpt-gateway-node
+      cd chatgpt-gateway-node
+      RUN_BASE_DIR=$(pwd)
+      sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" ./pnctl
+      sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" ./config.yaml
+      sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" ./config.yaml
+      cp ./pnctl /usr/local/bin && chmod +x /usr/local/bin/pnctl
+      docker compose pull
+      docker compose up -d --remove-orphans
 
-    RUN_BASE_DIR=/opt/chatgpt-gateway-node
-    mkdir -p $RUN_BASE_DIR
-    rm -rf $RUN_BASE_DIR/*
-    cp ./pnctl /usr/local/bin && chmod +x /usr/local/bin/pnctl
-    cp ./docker-compose.yml $RUN_BASE_DIR
-    cp ./config.yaml $RUN_BASE_DIR
-    sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" /usr/local/bin/pnctl
-    sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" $RUN_BASE_DIR/config.yaml
-    sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" $RUN_BASE_DIR/config.yaml
-
-    cd $RUN_BASE_DIR
-    docker compose pull
-    docker compose up -d --remove-orphans
-
-## 提示信息
 }
-
 
 function Get_Ip(){
     active_interface=$(ip route get 8.8.8.8 | awk 'NR==1 {print $5}')
@@ -237,24 +227,48 @@ function Show_Result(){
     log ""
     log "网关地址: http://$PUBLIC_IP:$NODE_PORT"
     log "AuthKey: ${AUTH_KEY}"
-    log "安装日志: ${CURRENT_DIR}/gateway-node-install.log" 
+    log "LICENCE: ${LICENCE}"
+    log "安装日志: ${CURRENT_DIR}/gateway-node-install.log"
         
     log "如果使用的是云服务器，请至安全组开放 $NODE_PORT 端口"
     log ""
     log "================================================================"
 }
 
-
-
-
+function Do_Install(){
+  Install_Docker
+  Install_Compose
+  Set_Auth_Key
+  Set_Licence
+  InitNode
+  Get_Ip
+  Show_Result
+  }
 function main(){
     Check_Root
-    Install_Docker
-    Install_Compose
-    Set_Auth_Key
-    Set_Licence
-    InitNode
-    Get_Ip
-    Show_Result
+    DIRECTORY="chatgpt-gateway-node"
+    if [ -d "$DIRECTORY" ]; then
+        # 目录存在，询问是否覆盖
+        read -p "目录 '$DIRECTORY' 已存在。是否覆盖安装？(y/n): " choice
+        if [[ $choice == "y" || $choice == "Y" ]]; then
+            log "开始覆盖安装"
+            # 这里添加覆盖安装的命令
+            # 例如: rm -rf $DIRECTORY
+            # 例如: git clone <repository_url> $DIRECTORY
+             rm -rf chatgpt-gateway-node
+             Do_Install
+        else
+            log "覆盖安装已取消。"
+            exit 1
+        fi
+    else
+        # 目录不存在，继续安装
+        log "目录不存在，继续安装..."
+        # 这里添加安装命令
+        # 例如: git clone <repository_url> $DIRECTORY
+        Do_Install
+    fi
+
 }
+
 main
