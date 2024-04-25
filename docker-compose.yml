@@ -2,7 +2,7 @@ version: '3.8'
 services:
   chatgpt-gateway-node:
     image: hanglegehang/chatgpt-gateway-node:latest
-    restart: always
+    restart: no
     ports:
       - 8100:8100
     environment:
