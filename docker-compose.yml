@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   chatgpt-gateway-node:
-    image: hanglegehang/chatgpt-gateway-node:latest
+    image: hanglegehang/chatgpt-gateway-node:test
     restart: no
     ports:
       - 8100:8100
@@ -10,9 +10,21 @@ services:
     volumes:
       - ./config.yaml:/app/config.yaml
       - ./logs/:/app/logs/
-
+      - ./goaccess/report/:/app/resource/public/
     labels:
       - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
+  goaccess:
+    image: allinurl/goaccess
+    volumes:
+      - ./logs/:/srv/logs/
+      - ./goaccess/conf/:/srv/conf/
+      - ./goaccess/report/:/srv/report/
+    ports:
+      - "7890:7890"
+    command: --no-global-config --config-file=/srv/conf/goaccess.conf --output=/srv/report/index.html --log-file=/srv/logs/access.log
+    restart: unless-stopped
+    environment:
+      - LANG=zh_CN.UTF-8
   watchtower:
     image: containrrr/watchtower
     volumes:
