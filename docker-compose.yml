@@ -10,7 +10,7 @@ services:
     volumes:
       - ./config.yaml:/app/config.yaml
       - ./logs/:/app/logs/
-      - ./goaccess/report/:/app/resource/public/
+      - ./goaccess/report/:/app/resource/monitor/
     labels:
       - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
   goaccess:
