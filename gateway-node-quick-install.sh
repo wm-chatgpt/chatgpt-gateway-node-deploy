@@ -251,12 +251,16 @@ function main(){
         read -p "目录 '$DIRECTORY' 已存在。是否覆盖安装？(y/n): " choice
         if [[ $choice == "y" || $choice == "Y" ]]; then
             log "开始覆盖安装,config.yaml已经备份到当前目录"
-            cp $DIRECTORY/config.yaml config.yaml
-            # 这里添加覆盖安装的命令
-            # 例如: rm -rf $DIRECTORY
-            # 例如: git clone <repository_url> $DIRECTORY
-             rm -rf chatgpt-gateway-node
-             Do_Install
+            if [ -f "$DIRECTORY/config.yaml" ]; then
+                # 文件存在，执行复制操作
+                cp "$DIRECTORY/config.yaml" config.yaml
+                echo "File copied to config.yaml"
+            else
+                # 文件不存在，跳过复制
+                echo "Source file does not exist, skipping copy."
+            fi
+            rm -rf chatgpt-gateway-node
+            Do_Install
         else
             log "覆盖安装已取消。"
             exit 1
