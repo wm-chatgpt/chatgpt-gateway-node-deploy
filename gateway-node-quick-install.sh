@@ -216,7 +216,6 @@ function Get_Ip(){
     fi
     if echo "$PUBLIC_IP" | grep -q ":"; then
         PUBLIC_IP=[${PUBLIC_IP}]
-        1pctl listen-ip ipv6
     fi
 }
 
@@ -251,7 +250,8 @@ function main(){
         # 目录存在，询问是否覆盖
         read -p "目录 '$DIRECTORY' 已存在。是否覆盖安装？(y/n): " choice
         if [[ $choice == "y" || $choice == "Y" ]]; then
-            log "开始覆盖安装"
+            log "开始覆盖安装,config.yaml已经备份到当前目录"
+            cp $DIRECTORY/config.yaml config.yaml
             # 这里添加覆盖安装的命令
             # 例如: rm -rf $DIRECTORY
             # 例如: git clone <repository_url> $DIRECTORY
