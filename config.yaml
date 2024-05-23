@@ -31,10 +31,10 @@ PROXY_URL:
 #授权码
 LICENCE: ""
 
-#网关节点参与代理，默认不参与，不支持热更新
-GATEWAY_ENABLE_PROXY: false
+#网关节点参与代理，默认参与，不支持热更新
+GATEWAY_ENABLE_PROXY: true
 
 #后端预计算sentinel token 默认为false，支持热更新，开启后则为api模式，可与chat2api plus搭配使用
-BackendGenSentinel: true
+BackendGenSentinel: false
 # 管理后台密码
 WEB_PASSWORD: "123789"
