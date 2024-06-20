@@ -20,14 +20,21 @@ logger:
     RotateBackupLimit: 10
     rotateBackupExpire: "7d"            # 按照切分的文件有效期清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
 
+#强制指定打码代理地址，默认为空，支持热更新，xy以及自建全炸后，可以配置兜底打码地址
+#ARK_PROXY : ""
+
 # 网关鉴权key
 AUTH_KEY: ""
 
 #代理地址，可配置多个，- 地址
-#PROXY_URL:
-#  - ""
 PROXY_URL:
 
+#ark代理地址，可配置多个，只能v4 - 地址
+ARK_PROXY_URL:
+
+POW_URL_LIST:
+  - wm-pow:8900
+  
 #授权码
 LICENCE: ""
 
@@ -36,6 +43,9 @@ GATEWAY_ENABLE_PROXY: false
 
 #后端预计算sentinel token 默认为false，支持热更新，开启后则为api模式，可与chat2api plus搭配使用
 BackendGenSentinel: false
+
 # 管理后台密码
 # WEB_PASSWORD: "123789"
+
 EnableRefreshSession: true
+
