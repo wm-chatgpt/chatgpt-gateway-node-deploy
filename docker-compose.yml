@@ -13,6 +13,17 @@ services:
       - ./goaccess/report/:/app/resource/monitor/
     labels:
       - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
+  wm-pow:
+    image: hanglegehang/wm-pow:latest
+    restart: always
+    # ports:
+    #   - "8900:8900"
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Asia/Shanghai
+    labels:
+      - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
   goaccess:
     image: allinurl/goaccess
     volumes:
