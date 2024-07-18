@@ -25,7 +25,6 @@ services:
       - MaxPowThread=2
       - GIN_MODE=release
       - LOG_LEVEL=info
-      - TZ=Asia/Shanghai   
     labels:
       - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
   goaccess:
