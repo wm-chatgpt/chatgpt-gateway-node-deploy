@@ -34,6 +34,8 @@ services:
     restart: always
     environment:
       - LANG=zh_CN.UTF-8
+    labels:
+      - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
   goaccess:
     image: allinurl/goaccess
     volumes:
