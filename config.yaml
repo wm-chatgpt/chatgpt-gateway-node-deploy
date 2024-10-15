@@ -30,7 +30,7 @@ POW_URL_LIST:
   - wm-pow:8900
   
 #授权码
-LICENCE: ""
+LICENCE: "xiaohuasheng666"
 
 #网关节点参与代理
 GATEWAY_ENABLE_PROXY: false
