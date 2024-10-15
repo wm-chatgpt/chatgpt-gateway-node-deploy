@@ -2,7 +2,7 @@ version: '3.8'
 services:
   chatgpt-gateway-node:
     image: hanglegehang/chatgpt-gateway-node:latest
-    restart: no
+    restart: always
     ports:
       - 8100:8100
     environment:
@@ -27,27 +27,15 @@ services:
       - LOG_LEVEL=info
     labels:
       - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
-  wm-turnstile:
-    image: hanglegehang/wm-turnstile:latest
-    ports:
-      - "7200:3000"
-    restart: always
-    environment:
-      - LANG=zh_CN.UTF-8
-    labels:
-      - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
-  goaccess:
-    image: allinurl/goaccess
-    volumes:
-      - ./logs/:/srv/logs/
-      - ./goaccess/conf/:/srv/conf/
-      - ./goaccess/report/:/srv/report/
-    ports:
-      - "7890:7890"
-    command: --no-global-config --config-file=/srv/conf/goaccess.conf --output=/srv/report/index.html --log-file=/srv/logs/access.log
-    restart: unless-stopped
-    environment:
-      - LANG=zh_CN.UTF-8
+  # wm-turnstile:
+  #   image: hanglegehang/wm-turnstile:latest
+  #   ports:
+  #     - "7200:3000"
+  #   restart: always
+  #   environment:
+  #     - LANG=zh_CN.UTF-8
+  #   labels:
+  #     - "com.centurylinklabs.watchtower.scope=hanglegehang-chatgpt-gateway-node"
   watchtower:
     image: containrrr/watchtower
     volumes:
