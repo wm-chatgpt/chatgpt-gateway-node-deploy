@@ -28,7 +28,9 @@ PROXY_URL:
 
 POW_URL_LIST:
   - wm-pow:8900
-  
+
+SELF_GET_SESSION: true
+
 #授权码
 LICENCE: "xiaohuasheng666"
 
