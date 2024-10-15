@@ -174,19 +174,19 @@ function Set_Auth_Key(){
        done
 }
 
-function Set_Licence(){
-       while true; do
-           read -p "请设置授权Licence：" LICENCE
+# function Set_Licence(){
+#        while true; do
+#            read -p "请设置授权Licence：" LICENCE
 
-           if [[ ! "$LICENCE" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
-               echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
-               continue
-           fi
+#            if [[ ! "$LICENCE" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
+#                echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
+#                continue
+#            fi
 
-           log "您设置的授权Licence为：$LICENCE"
-           break
-       done
-}
+#            log "您设置的授权Licence为：$LICENCE"
+#            break
+#        done
+# }
 
 function InitNode() {
       log "配置 gateway Node Service"
@@ -195,7 +195,7 @@ function InitNode() {
       RUN_BASE_DIR=$(pwd)
       sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" ./pnctl
       sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" ./config.yaml
-      sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" ./config.yaml
+      # sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" ./config.yaml
       cp ./pnctl /usr/local/bin && chmod +x /usr/local/bin/pnctl
       docker compose pull
       docker compose up -d --remove-orphans
