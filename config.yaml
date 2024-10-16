@@ -21,7 +21,7 @@ logger:
     rotateBackupExpire: "7d"            # 按照切分的文件有效期清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
 
 # 网关鉴权key
-AUTH_KEY: ""
+AUTH_KEY: "free"
 
 #代理地址，可配置多个，- 地址
 PROXY_URL:
