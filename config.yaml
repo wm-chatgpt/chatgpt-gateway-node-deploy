@@ -37,7 +37,7 @@ LICENCE: "xiaohuasheng666"
 #网关节点参与代理
 GATEWAY_ENABLE_PROXY: false
 
-SentinelEndpoint: "https://turnstile-01.closeoai.com"
+TurnstileEndpoint: "https://turnstile-01.closeoai.com"
 
 # 管理后台密码
 # WEB_PASSWORD: "123789"
