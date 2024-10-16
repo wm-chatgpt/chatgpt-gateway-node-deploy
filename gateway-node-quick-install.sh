@@ -194,7 +194,7 @@ function InitNode() {
       cd chatgpt-gateway-node
       RUN_BASE_DIR=$(pwd)
       sed -i -e "s#BASE_DIR=.*#BASE_DIR=${RUN_BASE_DIR}#g" ./pnctl
-      sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" ./config.yaml
+      # sed -i -e "s#AUTH_KEY:.*#AUTH_KEY: ${AUTH_KEY}#g" ./config.yaml
       # sed -i -e "s#LICENCE:.*#LICENCE: ${LICENCE}#g" ./config.yaml
       cp ./pnctl /usr/local/bin && chmod +x /usr/local/bin/pnctl
       docker compose pull
