@@ -154,25 +154,25 @@ function Install_Compose(){
 }
 
 
-function Set_Auth_Key(){
-       DEFAULT_AUTH_KEY=`cat /dev/urandom | head -n 16 | md5sum | head -c 10`
+# function Set_Auth_Key(){
+#        DEFAULT_AUTH_KEY=`cat /dev/urandom | head -n 16 | md5sum | head -c 10`
 
-       while true; do
-           read -p "请设置AuthKey（默认为$DEFAULT_AUTH_KEY）：" AUTH_KEY
+#        while true; do
+#            read -p "请设置AuthKey（默认为$DEFAULT_AUTH_KEY）：" AUTH_KEY
 
-           if [[ "$AUTH_KEY" == "" ]];then
-               AUTH_KEY=$DEFAULT_AUTH_KEY
-           fi
+#            if [[ "$AUTH_KEY" == "" ]];then
+#                AUTH_KEY=$DEFAULT_AUTH_KEY
+#            fi
 
-           if [[ ! "$AUTH_KEY" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
-               echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
-               continue
-           fi
+#            if [[ ! "$AUTH_KEY" =~ ^[a-zA-Z0-9_]{3,30}$ ]]; then
+#                echo "错误：仅支持字母、数字、下划线，长度 3-30 位"
+#                continue
+#            fi
 
-           log "您设置的AuthKey为：$AUTH_KEY"
-           break
-       done
-}
+#            log "您设置的AuthKey为：$AUTH_KEY"
+#            break
+#        done
+# }
 
 # function Set_Licence(){
 #        while true; do
