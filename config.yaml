@@ -23,21 +23,28 @@ logger:
 # 网关鉴权key
 AUTH_KEY: "free"
 
-#代理地址，可配置多个，- 地址
-PROXY_URL:
+# 代理节点地址，默认无代理，v4和v6均可
+PROXY_URL :
+  - socks5://xx:yy@111.222.333.444:8443
+
+# 强制开启对话流压缩 xy share站必须开启（否则不能生成对话记录）,chat2api-plus不能开启
+SupportEncodings: v1
 
 POW_URL_LIST:
   - wm-pow:8900
+  
+# 开启api模式 pow token预计算 降低首字耗时
+ApiMode: true
 
 SELF_GET_SESSION: true
 
 #授权码
-LICENCE: "xiaohuasheng666"
+LICENCE: ""
 
 #网关节点参与代理
 GATEWAY_ENABLE_PROXY: false
 
-TurnstileEndpoint: "https://turnstile-01.closeoai.com"
+TurnstileEndpoint: "https://turnstile-001.closeoai.com"
 
 # 管理后台密码
 # WEB_PASSWORD: "123789"
